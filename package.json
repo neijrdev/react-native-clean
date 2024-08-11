@@ -1,5 +1,5 @@
 {
-  "name": "ReactNativeClean",
+  "name": "react-native-clean",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -21,6 +21,7 @@
     "@react-native/eslint-config": "0.74.87",
     "@react-native/metro-config": "0.74.87",
     "@react-native/typescript-config": "0.74.87",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
