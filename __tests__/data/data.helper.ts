@@ -1,6 +1,10 @@
 import {HttpErrors} from '../../src/data/http/Errors';
 import {HttpPostClientI} from '../../src/data/http/HttpPostClient';
-import {RemoteAddAccount} from '../../src/data/usecases/RemoteAddAccount';
+
+import {
+  AddAccountResult,
+  RemoteAddAccount,
+} from '../../src/data/usecases/RemoteAddAccount';
 import {
   AccountModel,
   AccountModelI,
@@ -30,7 +34,7 @@ export function makeSut(url = new URL('http://any-url.com')) {
   let remoteAddAccount = new RemoteAddAccount(url, httpClientSpy);
 
   return {
-    remoteAddAccount,
+    sut: remoteAddAccount,
     httpClientSpy,
   };
 }
@@ -53,4 +57,19 @@ export class HttpClientSpy implements HttpPostClientI {
   completionData(data: any) {
     this.completion(data);
   }
+}
+export function expectResult(
+  sut: RemoteAddAccount,
+  expectedResult: AddAccountResult,
+  action: () => void,
+) {
+  let receivedResult: AddAccountResult | null = null;
+
+  sut.add(makeAddAccountModel(), async result => {
+    receivedResult = result;
+  });
+
+  action();
+
+  expect(receivedResult).toEqual(expectedResult);
 }
