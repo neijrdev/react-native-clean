@@ -1,15 +1,6 @@
+import {HttpPostClientI} from '../../src/data/HttpPostClient';
+import {RemoteAddAccount} from '../../src/data/RemoteAddAccount';
 import {AddAccountModel} from '../../src/domain/AddAccount';
-import {HttpPostClient, RemoteAddAccount} from './data.test';
-
-export class HttpClientSpy implements HttpPostClient {
-  url!: URL;
-  data!: any;
-
-  post(url: URL, data?: AddAccountModel) {
-    this.url = url;
-    this.data = data;
-  }
-}
 
 export function makeAddAccountModel(): AddAccountModel {
   return new AddAccountModel(
@@ -28,4 +19,14 @@ export function makeSut(url = new URL('http://any-url.com')) {
     remoteAddAccount,
     httpClient,
   };
+}
+
+export class HttpClientSpy implements HttpPostClientI {
+  url!: URL;
+  data!: any;
+
+  post(url: URL, data?: AddAccountModel) {
+    this.url = url;
+    this.data = data;
+  }
 }

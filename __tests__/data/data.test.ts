@@ -1,23 +1,5 @@
-import {AddAccountModel} from '../../src/domain/AddAccount';
+import {RemoteAddAccount} from '../../src/data/RemoteAddAccount';
 import {HttpClientSpy, makeAddAccountModel, makeSut} from './data.helper';
-
-export class RemoteAddAccount {
-  private url!: URL;
-  private httpClient!: HttpPostClient;
-
-  constructor(url: URL, httpClient: HttpPostClient) {
-    this.url = url;
-    this.httpClient = httpClient;
-  }
-
-  add(addAccountModel: AddAccountModel) {
-    this.httpClient.post(this.url, addAccountModel);
-  }
-}
-
-export interface HttpPostClient {
-  post(url: URL, data: AddAccountModel): void;
-}
 
 describe('Remote Add Acount Tests', () => {
   it('test add should dall httpclient with correct url', () => {
