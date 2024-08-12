@@ -6,7 +6,7 @@ describe('Remote Add Acount Tests', () => {
     const url = new URL('http://any-url.com');
     const sut = makeSut(url);
     sut.remoteAddAccount.add(makeAddAccountModel());
-    expect(sut.httpClient.url).toEqual(url);
+    expect(sut.httpClient.urls).toEqual([url]);
   });
 
   it('test add should dall httpclient with correct data', () => {

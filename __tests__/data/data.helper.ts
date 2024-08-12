@@ -22,11 +22,11 @@ export function makeSut(url = new URL('http://any-url.com')) {
 }
 
 export class HttpClientSpy implements HttpPostClientI {
-  url!: URL;
+  readonly urls: URL[] = [];
   data!: any;
 
   post(url: URL, data?: AddAccountModel) {
-    this.url = url;
+    this.urls.push(url);
     this.data = data;
   }
 }
