@@ -1,5 +1,5 @@
 import {AddAccountModel} from '../../src/domain/AddAccount';
-import {HttpPostClient} from './data.test';
+import {HttpPostClient, RemoteAddAccount} from './data.test';
 
 export class HttpClientSpy implements HttpPostClient {
   url!: URL;
@@ -18,4 +18,14 @@ export function makeAddAccountModel(): AddAccountModel {
     'securePassword123',
     'securePassword123',
   );
+}
+
+export function makeSut(url = new URL('http://any-url.com')) {
+  let httpClient = new HttpClientSpy();
+  let remoteAddAccount = new RemoteAddAccount(url, httpClient);
+
+  return {
+    remoteAddAccount,
+    httpClient,
+  };
 }

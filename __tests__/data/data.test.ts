@@ -1,5 +1,5 @@
 import {AddAccountModel} from '../../src/domain/AddAccount';
-import {HttpClientSpy, makeAddAccountModel} from './data.helper';
+import {HttpClientSpy, makeAddAccountModel, makeSut} from './data.helper';
 
 export class RemoteAddAccount {
   private url!: URL;
@@ -21,11 +21,10 @@ export interface HttpPostClient {
 
 describe('Remote Add Acount Tests', () => {
   it('test add should dall httpclient with correct url', () => {
-    let url = new URL('http://any-url.com')!;
-    let httpClient = new HttpClientSpy();
-    const sut = new RemoteAddAccount(url, httpClient);
-    sut.add(makeAddAccountModel());
-    expect(httpClient.url).toBe(url);
+    const url = new URL('http://any-url.com');
+    const sut = makeSut(url);
+    sut.remoteAddAccount.add(makeAddAccountModel());
+    expect(sut.httpClient.url).toEqual(url);
   });
 
   it('test add should dall httpclient with correct data', () => {
