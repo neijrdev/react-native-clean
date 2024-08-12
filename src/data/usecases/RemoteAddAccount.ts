@@ -1,4 +1,5 @@
 import {AddAccountModelI} from '../../domain/usecases/AddAccount';
+import {HttpErrors} from '../http/Errors';
 import {HttpPostClientI} from '../http/HttpPostClient';
 
 export class RemoteAddAccount {
@@ -10,7 +11,12 @@ export class RemoteAddAccount {
     this.httpClient = httpClient;
   }
 
-  add(addAccountModel: AddAccountModelI) {
-    this.httpClient.post(this.url, addAccountModel);
+  async add(
+    addAccountModel: AddAccountModelI,
+    completion: (error: HttpErrors) => void,
+  ) {
+    this.httpClient.post(this.url, addAccountModel, error => {
+      completion(error);
+    });
   }
 }
