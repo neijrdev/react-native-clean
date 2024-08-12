@@ -1,5 +1,5 @@
-import {AddAccountModelI} from '../domain/AddAccount';
-import {HttpPostClientI} from './HttpPostClient';
+import {AddAccountModelI} from '../../domain/models/AddAccount';
+import {HttpPostClientI} from '../http/HttpPostClient';
 
 export class RemoteAddAccount {
   private url!: URL;

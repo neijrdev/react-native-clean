@@ -1,5 +1,5 @@
-import {RemoteAddAccount} from '../../src/data/RemoteAddAccount';
-import {HttpClientSpy, makeAddAccountModel, makeSut} from './data.helper';
+import {RemoteAddAccount} from '../../../src/data/usecases/RemoteAddAccount';
+import {HttpClientSpy, makeAddAccountModel, makeSut} from '../data.helper';
 
 describe('Remote Add Acount Tests', () => {
   it('test add should dall httpclient with correct url', () => {
