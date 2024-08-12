@@ -30,4 +30,19 @@ describe('Remote Add Acount Tests', () => {
     //THEN
     expect(expectedError).toEqual(HttpErrors.noConnectivity);
   });
+
+  it('test add should complete with error with client completes with data', async () => {
+    //GIVEN
+    const {remoteAddAccount, httpClientSpy} = makeSut();
+    let expectedAccount;
+    remoteAddAccount.add(makeAddAccountModel(), async result => {
+      expectedAccount = result;
+    });
+
+    //WHEN - mock success
+    httpClientSpy.completionData(makeAddAccountModel());
+
+    //THEN
+    expect(expectedAccount).toEqual(makeAddAccountModel());
+  });
 });

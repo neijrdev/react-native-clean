@@ -3,13 +3,13 @@ import {HttpPostClientI} from '../../src/data/http/HttpPostClient';
 import {RemoteAddAccount} from '../../src/data/usecases/RemoteAddAccount';
 import {AddAccountModel} from '../../src/domain/usecases/AddAccount';
 
-export function makeAddAccountModel(): AddAccountModel {
-  return new AddAccountModel(
-    'Jane Doe',
-    'jane.doe@example.com',
-    'securePassword123',
-    'securePassword123',
-  );
+export function makeAddAccountModel(
+  name = 'Jane Doe',
+  email = 'jane.doe@example.com',
+  password = 'securePassword123',
+  passwordConfirmation = 'securePassword123',
+): AddAccountModel {
+  return new AddAccountModel(name, email, password, passwordConfirmation);
 }
 
 export function makeSut(url = new URL('http://any-url.com')) {
@@ -35,5 +35,9 @@ export class HttpClientSpy implements HttpPostClientI {
 
   completionError(error: HttpErrors) {
     this.completion(error);
+  }
+
+  completionData(data: any) {
+    this.completion(data);
   }
 }

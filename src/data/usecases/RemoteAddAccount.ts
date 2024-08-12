@@ -18,8 +18,8 @@ export class RemoteAddAccount implements AddAccountI {
     addAccountModel: AddAccountModelI,
     completion: (result: AddAccountResult) => void,
   ) {
-    this.httpClient.post(this.url, addAccountModel, error => {
-      completion(error);
+    this.httpClient.post(this.url, addAccountModel, result => {
+      completion(result);
     });
   }
 }
