@@ -1,6 +1,6 @@
 import {HttpPostClientI} from '../../src/data/http/HttpPostClient';
 import {RemoteAddAccount} from '../../src/data/usecases/RemoteAddAccount';
-import {AddAccountModel} from '../../src/domain/models/AddAccount';
+import {AddAccountModel} from '../../src/domain/usecases/AddAccount';
 
 export function makeAddAccountModel(): AddAccountModel {
   return new AddAccountModel(

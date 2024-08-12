@@ -1,4 +1,4 @@
-import {AddAccountModelI} from '../../domain/models/AddAccount';
+import {AddAccountModelI} from '../../domain/usecases/AddAccount';
 import {HttpPostClientI} from '../http/HttpPostClient';
 
 export class RemoteAddAccount {
