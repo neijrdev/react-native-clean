@@ -1,6 +1,10 @@
 import {HttpErrors} from '../../src/data/http/Errors';
 import {HttpPostClientI} from '../../src/data/http/HttpPostClient';
 import {RemoteAddAccount} from '../../src/data/usecases/RemoteAddAccount';
+import {
+  AccountModel,
+  AccountModelI,
+} from '../../src/domain/models/AccountModel';
 import {AddAccountModel} from '../../src/domain/usecases/AddAccount';
 
 export function makeAddAccountModel(
@@ -10,6 +14,15 @@ export function makeAddAccountModel(
   passwordConfirmation = 'securePassword123',
 ): AddAccountModel {
   return new AddAccountModel(name, email, password, passwordConfirmation);
+}
+
+export function makeAccountModel(
+  id = '1',
+  name = 'jane doe',
+  email = 'jane.doe@example.com',
+  password = 'securePassword123',
+): AccountModelI {
+  return new AccountModel(id, email, name, password);
 }
 
 export function makeSut(url = new URL('http://any-url.com')) {

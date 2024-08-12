@@ -1,5 +1,6 @@
 import {HttpErrors} from '../../../src/data/http/Errors';
-import {makeAddAccountModel, makeSut} from '../data.helper';
+import {DomainErrors} from '../../../src/domain/errors/Errors';
+import {makeAccountModel, makeAddAccountModel, makeSut} from '../data.helper';
 
 describe('Remote Add Acount Tests', () => {
   it('test add should dall httpclient with correct url', () => {
@@ -28,10 +29,10 @@ describe('Remote Add Acount Tests', () => {
     httpClientSpy.completionError(HttpErrors.noConnectivity);
 
     //THEN
-    expect(expectedError).toEqual(HttpErrors.noConnectivity);
+    expect(expectedError).toEqual(DomainErrors.Unexpected);
   });
 
-  it('test add should complete with error with client completes with data', async () => {
+  it('test add should complete with error with client completes with valid and expected data', async () => {
     //GIVEN
     const {remoteAddAccount, httpClientSpy} = makeSut();
     let expectedAccount;
@@ -40,9 +41,39 @@ describe('Remote Add Acount Tests', () => {
     });
 
     //WHEN - mock success
-    httpClientSpy.completionData(makeAddAccountModel());
+    httpClientSpy.completionData(makeAccountModel());
 
     //THEN
-    expect(expectedAccount).toEqual(makeAddAccountModel());
+    expect(expectedAccount).toEqual(makeAccountModel());
+  });
+
+  it('test add should complete with error with client completes with invalid Json data', async () => {
+    //GIVEN
+    const {remoteAddAccount, httpClientSpy} = makeSut();
+    let expectedAccount;
+    remoteAddAccount.add(makeAddAccountModel(), async result => {
+      expectedAccount = result;
+    });
+
+    //WHEN - mock success
+    httpClientSpy.completionData('invalid json data');
+
+    //THEN
+    expect(expectedAccount).toEqual(DomainErrors.Unexpected);
+  });
+
+  it('test add should complete with error with client completes with unexpected Json data', async () => {
+    //GIVEN
+    const {remoteAddAccount, httpClientSpy} = makeSut();
+    let expectedAccount;
+    remoteAddAccount.add(makeAddAccountModel(), async result => {
+      expectedAccount = result;
+    });
+
+    //WHEN - mock success
+    httpClientSpy.completionData({other: 'data', data: {}});
+
+    //THEN
+    expect(expectedAccount).toEqual(DomainErrors.Unexpected);
   });
 });
