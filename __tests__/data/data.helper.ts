@@ -73,3 +73,14 @@ export function expectResult(
 
   expect(receivedResult).toEqual(expectedResult);
 }
+
+export function makeInvalidJsonData() {
+  return 'invalid json data';
+}
+export function makeInvalidExpectedJsonData() {
+  return {other: 'data', data: {}};
+}
+
+export function makeURL() {
+  return new URL('http://any-url.com');
+}

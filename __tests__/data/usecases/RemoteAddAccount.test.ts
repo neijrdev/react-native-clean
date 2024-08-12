@@ -4,12 +4,15 @@ import {
   expectResult,
   makeAccountModel,
   makeAddAccountModel,
+  makeInvalidExpectedJsonData,
+  makeInvalidJsonData,
   makeSut,
+  makeURL,
 } from '../data.helper';
 
 describe('Remote Add Account Tests', () => {
   it('test add should call httpClient with correct url', () => {
-    const url = new URL('http://any-url.com');
+    const url = makeURL();
     const {sut, httpClientSpy} = makeSut(url);
     sut.add(makeAddAccountModel(), async () => {});
     expect(httpClientSpy.urls).toEqual([url]);
@@ -45,7 +48,7 @@ describe('Remote Add Account Tests', () => {
     const {sut, httpClientSpy} = makeSut();
     expectResult(sut, DomainErrors.Unexpected, () => {
       //WHEN - mock  failure
-      httpClientSpy.completionData('invalid json data');
+      httpClientSpy.completionData(makeInvalidJsonData());
     });
   });
 
@@ -54,7 +57,7 @@ describe('Remote Add Account Tests', () => {
     const {sut, httpClientSpy} = makeSut();
     expectResult(sut, DomainErrors.Unexpected, () => {
       //WHEN - mock failure
-      httpClientSpy.completionData({other: 'data', data: {}});
+      httpClientSpy.completionData(makeInvalidExpectedJsonData());
     });
   });
 });
