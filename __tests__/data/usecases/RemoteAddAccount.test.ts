@@ -16,12 +16,12 @@ describe('Remote Add Acount Tests', () => {
     expect(sut.httpClientSpy.data).toEqual(addAccountModel);
   });
 
-  it('test add should complete with error with client fail', async () => {
+  it('test add should complete with error with client completes with error', async () => {
     //GIVEN
     const {remoteAddAccount, httpClientSpy} = makeSut();
     let expectedError;
-    remoteAddAccount.add(makeAddAccountModel(), async error => {
-      expectedError = error;
+    remoteAddAccount.add(makeAddAccountModel(), async result => {
+      expectedError = result;
     });
 
     //WHEN

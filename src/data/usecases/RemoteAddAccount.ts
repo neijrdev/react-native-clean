@@ -1,8 +1,11 @@
-import {AddAccountModelI} from '../../domain/usecases/AddAccount';
+import {AccountModelI} from '../../domain/models/AccountModel';
+import {AddAccountI, AddAccountModelI} from '../../domain/usecases/AddAccount';
 import {HttpErrors} from '../http/Errors';
 import {HttpPostClientI} from '../http/HttpPostClient';
 
-export class RemoteAddAccount {
+export type AddAccountResult = AccountModelI | HttpErrors;
+
+export class RemoteAddAccount implements AddAccountI {
   private url!: URL;
   private httpClient!: HttpPostClientI;
 
@@ -13,7 +16,7 @@ export class RemoteAddAccount {
 
   async add(
     addAccountModel: AddAccountModelI,
-    completion: (error: HttpErrors) => void,
+    completion: (result: AddAccountResult) => void,
   ) {
     this.httpClient.post(this.url, addAccountModel, error => {
       completion(error);

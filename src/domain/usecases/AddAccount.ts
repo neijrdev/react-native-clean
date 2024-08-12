@@ -1,7 +1,10 @@
-import {AccountModelI} from '../models/AccountModel';
+import {AddAccountResult} from '../../data/usecases/RemoteAddAccount';
 
 export interface AddAccountI {
-  add(addAccountModel: AddAccountModelI): Promise<AccountModelI>;
+  add(
+    addAccountModel: AddAccountModelI,
+    completion: (result: AddAccountResult) => void,
+  ): Promise<void>;
 }
 
 export interface AddAccountModelI {
