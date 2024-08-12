@@ -1,6 +1,7 @@
 import {AddAccountModel} from '../../src/domain/AddAccount';
+import {HttpClientSpy, makeAddAccountModel} from './data.helper';
 
-class RemoteAddAccount {
+export class RemoteAddAccount {
   private url!: URL;
   private httpClient!: HttpPostClient;
 
@@ -14,7 +15,7 @@ class RemoteAddAccount {
   }
 }
 
-interface HttpPostClient {
+export interface HttpPostClient {
   post(url: URL, data: AddAccountModel): void;
 }
 
@@ -36,22 +37,3 @@ describe('Remote Add Acount Tests', () => {
     expect(httpClient.data).toEqual(addAccountModel);
   });
 });
-
-class HttpClientSpy implements HttpPostClient {
-  url!: URL;
-  data!: any;
-
-  post(url: URL, data?: AddAccountModel) {
-    this.url = url;
-    this.data = data;
-  }
-}
-
-function makeAddAccountModel(): AddAccountModel {
-  return new AddAccountModel(
-    'Jane Doe',
-    'jane.doe@example.com',
-    'securePassword123',
-    'securePassword123',
-  );
-}
