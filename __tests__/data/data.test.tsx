@@ -23,13 +23,7 @@ describe('Remote Add Acount Tests', () => {
     let url = new URL('http://any-url.com')!;
     let httpClient = new HttpClientSpy();
     const sut = new RemoteAddAccount(url, httpClient);
-    const addAccountModel = new AddAccountModel(
-      'Jane Doe',
-      'jane.doe@example.com',
-      'securePassword123',
-      'securePassword123',
-    );
-    sut.add(addAccountModel);
+    sut.add(makeAddAccountModel());
     expect(httpClient.url).toBe(url);
   });
 
@@ -37,12 +31,7 @@ describe('Remote Add Acount Tests', () => {
     let url = new URL('http://any-url.com')!;
     let httpClient = new HttpClientSpy();
     const sut = new RemoteAddAccount(url, httpClient);
-    const addAccountModel = new AddAccountModel(
-      'Jane Doe',
-      'jane.doe@example.com',
-      'securePassword123',
-      'securePassword123',
-    );
+    const addAccountModel = makeAddAccountModel();
     sut.add(addAccountModel);
     expect(httpClient.data).toEqual(addAccountModel);
   });
@@ -56,4 +45,13 @@ class HttpClientSpy implements HttpPostClient {
     this.url = url;
     this.data = data;
   }
+}
+
+function makeAddAccountModel(): AddAccountModel {
+  return new AddAccountModel(
+    'Jane Doe',
+    'jane.doe@example.com',
+    'securePassword123',
+    'securePassword123',
+  );
 }
